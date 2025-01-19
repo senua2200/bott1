@@ -1,97 +1,286 @@
 {
-    "project": {
-        "id": "zb-cailapub",
-        "name": "zb-cailapub",
-        "folder": "/platform"
+  "project" : {
+    "id" : "bott1-1000088507-gWv",
+    "name" : "bott1-1000088507-gWv",
+    "folder" : "/platform"
+  },
+  "settings" : {
+    "language" : "ru",
+    "spellingCorrection" : false,
+    "classificationAlgorithm" : "sts",
+    "timezone" : "Europe/Moscow",
+    "extendedSettings" : {
+      "classificationAlgorithmVersion" : 1.0,
+      "tokenizerEngine" : "mystem",
+      "useShared" : false
     },
-    "settings": {
-        "language": "ru",
-        "spellingCorrection": false,
-        "classificationAlgorithm": "sts",
-        "validation": {
-            "phraseValidationEnabled": true,
-            "answerValidationEnabled": true,
-            "phraseValidationThreshold": 0.5,
-            "answerValidationThreshold": 0.8
-        },
-        "timezone": "Europe/Moscow",
-        "extendedSettings": {
-            "classificationAlgorithmVersion": 1.0,
-            "tokenizerEngine": "mystem",
-            "useShared": false
-        }
+    "shared" : false,
+    "validation" : {
+      "phraseValidationEnabled" : true,
+      "answerValidationEnabled" : true,
+      "phraseValidationThreshold" : 0.5,
+      "answerValidationThreshold" : 0.8
+    }
+  },
+  "intents" : [ {
+    "path" : "/пока",
+    "enabled" : true,
+    "shared" : false,
+    "phrases" : [ {
+      "text" : "пока"
+    } ],
+    "classificationRules" : {
+      "refs" : [ ]
     },
-    "intents": [
-        {
-            "path": "/пока",
-            "description": null,
-            "answer": null,
-            "customData": null,
-            "enabled": true,
-            "phrases": [
-                {
-                    "text": "пока",
-                    "entities": null
-                }
-            ],
-            "patterns": null,
-            "slots": null
-        },
-        {
-            "path": "/привет",
-            "description": null,
-            "answer": null,
-            "customData": null,
-            "enabled": true,
-            "phrases": [
-                {
-                    "text": "привет",
-                    "entities": null
-                }
-            ],
-            "patterns": null,
-            "slots": null
-        }
-    ],
-    "entities": [],
-    "enabledSystemEntities": [
-        "duckling.number",
-        "duckling.time",
-        "duckling.duration",
-        "duckling.phone-number",
-        "duckling.email",
-        "duckling.url"
-    ],
-    "systemEntities": [
-        {
-            "name": "duckling.number",
-            "version": "v2",
-            "enabled": true
-        },
-        {
-            "name": "duckling.time",
-            "version": "v2",
-            "enabled": true
-        },
-        {
-            "name": "duckling.duration",
-            "version": "v2",
-            "enabled": true
-        },
-        {
-            "name": "duckling.phone-number",
-            "version": "v2",
-            "enabled": true
-        },
-        {
-            "name": "duckling.email",
-            "version": "v2",
-            "enabled": true
-        },
-        {
-            "name": "duckling.url",
-            "version": "v2",
-            "enabled": true
-        }
-    ]
+    "priority" : 0
+  }, {
+    "path" : "/привет",
+    "enabled" : true,
+    "shared" : false,
+    "phrases" : [ {
+      "text" : "привет"
+    } ],
+    "classificationRules" : {
+      "refs" : [ ]
+    },
+    "priority" : 0
+  } ],
+  "entities" : [ {
+    "entity" : {
+      "name" : "culture",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : true,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : false
+    },
+    "records" : [ {
+      "type" : "synonyms",
+      "rule" : [ "Эстетика", "Литература", "Общество", "Наследие", "Искусство", "Просвещение", "Традиции", "Традиции", "Традиции", "Цивилизация", "люди", "человек" ],
+      "value" : "{\n  \"name\": \"Культура\"\n}"
+    } ]
+  }, {
+    "entity" : {
+      "name" : "activities",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : true,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : false
+    },
+    "records" : [ {
+      "type" : "synonyms",
+      "rule" : [ "Активность ", "Активное", "Спорт", "Энергичный", "Подвижные", "Динамичный ", "Динамичный " ],
+      "value" : "{\n  \"name\": \"Активности\"\n}"
+    } ]
+  }, {
+    "entity" : {
+      "name" : "categories",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : true,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : false
+    },
+    "records" : [ {
+      "type" : "pattern",
+      "rule" : [ "@nature" ],
+      "value" : ""
+    }, {
+      "type" : "pattern",
+      "rule" : [ "@education" ],
+      "value" : ""
+    }, {
+      "type" : "pattern",
+      "rule" : [ "@culture" ],
+      "value" : ""
+    }, {
+      "type" : "pattern",
+      "rule" : [ "@winter" ],
+      "value" : ""
+    }, {
+      "type" : "pattern",
+      "rule" : [ "@activities" ],
+      "value" : ""
+    } ]
+  }, {
+    "entity" : {
+      "name" : "education",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : true,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : false
+    },
+    "records" : [ {
+      "type" : "synonyms",
+      "rule" : [ "Образованность", "Обучение", "Воспитание", "Развитие", "Просвещение", "Учёба", "Знания", "Эрудиция" ],
+      "value" : "{\n  \"name\": \"Образование\"\n}"
+    } ]
+  }, {
+    "entity" : {
+      "name" : "winter",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : true,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : false
+    },
+    "records" : [ {
+      "type" : "synonyms",
+      "rule" : [ "зима", "холод", "мороз", "новый год", "праздник", "лед", "коньки" ],
+      "value" : "{\n  \"name\": \"Зима\"\n}"
+    } ]
+  }, {
+    "entity" : {
+      "name" : "nature",
+      "enabled" : true,
+      "shared" : false,
+      "type" : "annotation",
+      "priority" : 1,
+      "noSpelling" : true,
+      "noMorph" : false,
+      "phoneticSearch" : false,
+      "fuzzySearch" : false,
+      "client" : false,
+      "hidden" : false
+    },
+    "records" : [ {
+      "type" : "synonyms",
+      "rule" : [ "деревья", "природа", "прогулка", "гулять", "животные", "воздух", "свежий", "лес" ],
+      "value" : "{\n  \"name\": \"Природа\"\n}"
+    } ]
+  } ],
+  "enabledSystemEntities" : [ "mystem.persn", "mystem.patrn", "pymorphy.numb", "pymorphy.surn", "duckling.number", "duckling.time", "duckling.duration", "duckling.phone-number", "duckling.email", "duckling.url", "zb.number" ],
+  "spellerDictionary" : [ ],
+  "systemEntities" : [ {
+    "name" : "mystem.geo",
+    "enabled" : false
+  }, {
+    "name" : "mystem.persn",
+    "enabled" : true
+  }, {
+    "name" : "mystem.obsc",
+    "enabled" : false
+  }, {
+    "name" : "mystem.patrn",
+    "enabled" : true
+  }, {
+    "name" : "mystem.famn",
+    "enabled" : false
+  }, {
+    "name" : "pymorphy.romn",
+    "enabled" : false
+  }, {
+    "name" : "pymorphy.latn",
+    "enabled" : false
+  }, {
+    "name" : "pymorphy.numb",
+    "enabled" : true
+  }, {
+    "name" : "pymorphy.intg",
+    "enabled" : false
+  }, {
+    "name" : "pymorphy.abbr",
+    "enabled" : false
+  }, {
+    "name" : "pymorphy.name",
+    "enabled" : false
+  }, {
+    "name" : "pymorphy.surn",
+    "enabled" : true
+  }, {
+    "name" : "pymorphy.patr",
+    "enabled" : false
+  }, {
+    "name" : "pymorphy.geox",
+    "enabled" : false
+  }, {
+    "name" : "pymorphy.orgn",
+    "enabled" : false
+  }, {
+    "name" : "duckling.number",
+    "version" : "v2",
+    "enabled" : true
+  }, {
+    "name" : "duckling.ordinal",
+    "version" : "v2",
+    "enabled" : false
+  }, {
+    "name" : "duckling.amount-of-money",
+    "version" : "v2",
+    "enabled" : false
+  }, {
+    "name" : "duckling.distance",
+    "version" : "v2",
+    "enabled" : false
+  }, {
+    "name" : "duckling.time",
+    "version" : "v2",
+    "enabled" : true
+  }, {
+    "name" : "duckling.date",
+    "version" : "v2",
+    "enabled" : false
+  }, {
+    "name" : "duckling.time-of-day",
+    "version" : "v2",
+    "enabled" : false
+  }, {
+    "name" : "duckling.duration",
+    "version" : "v2",
+    "enabled" : true
+  }, {
+    "name" : "duckling.phone-number",
+    "version" : "v2",
+    "enabled" : true
+  }, {
+    "name" : "duckling.email",
+    "version" : "v2",
+    "enabled" : true
+  }, {
+    "name" : "duckling.url",
+    "version" : "v2",
+    "enabled" : true
+  }, {
+    "name" : "duckling.interval",
+    "version" : "v2",
+    "enabled" : false
+  }, {
+    "name" : "mlps-obscene.obscene",
+    "enabled" : false
+  }, {
+    "name" : "zb.datetime",
+    "enabled" : false
+  }, {
+    "name" : "zb.number",
+    "enabled" : true
+  } ],
+  "faq" : [ ],
+  "skills" : [ ]
 }
