@@ -184,13 +184,11 @@ theme: /
                 "Вернуться в начало" -> /Greeting
             
         # СЮДА ЧТО ТО ПОЙДЕТ
-        buttons:
-            "Вернуться в начало" -> /Greeting
-        script:
-            $session.city = null;
-            $session.category = null;
-            $session.budget = null;
-            $session.max_participants = null;
+        # script:
+        #     $session.city = null;
+        #     $session.category = null;
+        #     $session.budget = null;
+        #     $session.max_participants = null;
 
 
     
@@ -201,7 +199,7 @@ theme: /
                 {
                     body: {
                         "city": $session.city,
-                        "category_name": $session.category,
+                        "category": $session.category,
                         "price": $session.budget,
                         "max_participants": $session.max_participants
                     },
@@ -249,7 +247,7 @@ theme: /
         state: booking
             a: Как вас зовут?
             state: Name
-                q!: * {[@pymorphy.surn] * [@mystem.persn] * [@mystem.patrn]}  *
+                q: * {[@pymorphy.surn] * [@mystem.persn] * [@mystem.patrn]}  *
                 script:
                     $session.f = $parseTree["_pymorphy.surn"];
                     $session.i = $parseTree["_mystem.persn"];
