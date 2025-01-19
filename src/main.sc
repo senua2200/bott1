@@ -53,7 +53,6 @@ theme: /
             "Вернуться на шаг назад" -> /getCity
         state: catchCategory
             q: * @categories *
-            a: Категория для обращения к API: {{ $parseTree._categories.name }}
             script:
                 $session.category = $parseTree._categories.name
             a: Отлично! Вы выбрали категорию - {{$session.category}}.
@@ -127,34 +126,57 @@ theme: /
     
     
     state: Confirm
-        if: $session.city == "" && $session.budget == "" && $session.max_participants == ""
+        if: $session.city == null && $session.budget == null && $session.max_participants == null && $session.category == null
             a: Вы не указали ни одного критерия поиска, так я не смогу подобрать вам экскурсию. Укажите хотя-бы город!
             go!: /getCity
         else:
             script:
-                if ($session.city != null && $session.budget != null && $session.max_participants != null) {
+                if ($session.city != null && $session.budget != null && $session.max_participants != null && $session.category != null) {
                     $temp.answer = "Итак, вы хотите пройти экскурсию в городе " + $session.city + 
-                    ", с бюджетом до " + $session.budget + " рублей и максимально допустимым количеством участников: "
-                    + $session.max_participants + ". \nВсё верно?";
-                } else if ($session.city != null && $session.budget != null && $session.max_participants == null) {
+                    ", с бюджетом до " + $session.budget + " рублей, максимально допустимым количеством участников: " 
+                    + $session.max_participants + ", и предпочитаемой категорией: " + $session.category + ". \nВсё верно?";
+                } else if ($session.city != null && $session.budget != null && $session.max_participants != null && $session.category == null) {
                     $temp.answer = "Итак, вы хотите пройти экскурсию в городе " + $session.city + 
-                    ", с бюджетом до " + $session.budget + " рублей, без ограничения по количеству участников. \nВсё верно?";
-                } else if ($session.city != null && $session.budget == null && $session.max_participants != null) {
+                    ", с бюджетом до " + $session.budget + " рублей, максимально допустимым количеством участников: " 
+                    + $session.max_participants + ", без указания категории. \nВсё верно?";
+                } else if ($session.city != null && $session.budget != null && $session.max_participants == null && $session.category != null) {
+                    $temp.answer = "Итак, вы хотите пройти экскурсию в городе " + $session.city + 
+                    ", с бюджетом до " + $session.budget + " рублей, без ограничения по количеству участников, в категории: " 
+                    + $session.category + ". \nВсё верно?";
+                } else if ($session.city != null && $session.budget == null && $session.max_participants != null && $session.category != null) {
                     $temp.answer = "Итак, вы хотите пройти экскурсию в городе " + $session.city + 
                     ", без указания бюджета, с максимально допустимым количеством участников: " + $session.max_participants + 
-                    ". \nВсё верно?";
-                } else if ($session.city == null && $session.budget != null && $session.max_participants != null) {
+                    ", в категории: " + $session.category + ". \nВсё верно?";
+                } else if ($session.city == null && $session.budget != null && $session.max_participants != null && $session.category != null) {
                     $temp.answer = "Итак, вы хотите пройти экскурсию без указания города, с бюджетом до " + $session.budget + 
-                    " рублей и максимально допустимым количеством участников: " + $session.max_participants + ". \nВсё верно?";
-                } else if ($session.city != null && $session.budget == null && $session.max_participants == null) {
+                    " рублей, максимально допустимым количеством участников: " + $session.max_participants + 
+                    ", в категории: " + $session.category + ". \nВсё верно?";
+                } else if ($session.city != null && $session.budget == null && $session.max_participants == null && $session.category != null) {
                     $temp.answer = "Итак, вы хотите пройти экскурсию в городе " + $session.city + 
-                    ", без указания бюджета и количества участников. \nВсё верно?";
-                } else if ($session.city == null && $session.budget != null && $session.max_participants == null) {
+                    ", без указания бюджета и количества участников, в категории: " + $session.category + ". \nВсё верно?";
+                } else if ($session.city == null && $session.budget != null && $session.max_participants == null && $session.category != null) {
                     $temp.answer = "Итак, вы хотите пройти экскурсию без указания города, с бюджетом до " + $session.budget + 
-                    " рублей, без ограничения по количеству участников. \nВсё верно?";
-                } else if ($session.city == null && $session.budget == null && $session.max_participants != null) {
-                    $temp.answer = "Итак, вы хотите пройти экскурсию без указания города и бюджета, с максимально допустимым количеством участников: " + $session.max_participants + 
-                    ". \nВсё верно?";
+                    " рублей, без ограничения по количеству участников, в категории: " + $session.category + ". \nВсё верно?";
+                } else if ($session.city == null && $session.budget == null && $session.max_participants != null && $session.category != null) {
+                    $temp.answer = "Итак, вы хотите пройти экскурсию без указания города и бюджета, с максимально допустимым количеством участников: " 
+                    + $session.max_participants + ", в категории: " + $session.category + ". \nВсё верно?";
+                } else if ($session.city != null && $session.budget != null && $session.max_participants == null && $session.category == null) {
+                    $temp.answer = "Итак, вы хотите пройти экскурсию в городе " + $session.city + 
+                    ", с бюджетом до " + $session.budget + " рублей, без ограничения по количеству участников и без указания категории. \nВсё верно?";
+                } else if ($session.city != null && $session.budget == null && $session.max_participants != null && $session.category == null) {
+                    $temp.answer = "Итак, вы хотите пройти экскурсию в городе " + $session.city + 
+                    ", без указания бюджета, с максимально допустимым количеством участников и без указания категории. \nВсё верно?";
+                } else if ($session.city == null && $session.budget != null && $session.max_participants != null && $session.category == null) {
+                    $temp.answer = "Итак, вы хотите пройти экскурсию без указания города, с бюджетом до " + $session.budget + 
+                    " рублей, максимально допустимым количеством участников, без указания категории. \nВсё верно?";
+                } else if ($session.city != null && $session.budget == null && $session.max_participants == null && $session.category == null) {
+                    $temp.answer = "Итак, вы хотите пройти экскурсию в городе " + $session.city + 
+                    ", без указания бюджета, количества участников и категории. \nВсё верно?";
+                } else if ($session.city == null && $session.budget != null && $session.max_participants == null && $session.category == null) {
+                    $temp.answer = "Итак, вы хотите пройти экскурсию без указания города, с бюджетом до " + $session.budget + 
+                    " рублей, без ограничения по количеству участников и категории. \nВсё верно?";
+                } else if ($session.city == null && $session.budget == null && $session.max_participants != null && $session.category == null) {
+                    $temp.answer = "Итак, вы хотите пройти экскурсию без указания города и бюджета, с максимально допустимым количеством участников, без указания категории. \nВсё верно?";
                 }
             a: {{$temp.answer}}
             buttons:
@@ -166,6 +188,7 @@ theme: /
             "Вернуться в начало" -> /Greeting
         script:
             $session.city = null;
+            $session.category = null;
             $session.budget = null;
             $session.max_participants = null;
 
@@ -178,6 +201,7 @@ theme: /
                 {
                     body: {
                         "city": $session.city,
+                        "category_name": $session.category,
                         "price": $session.budget,
                         "max_participants": $session.max_participants
                     },
@@ -188,7 +212,6 @@ theme: /
             );
         # a: {{$temp.response.error}}
         if: $temp.response.isOk
-            a: Сейчас в городе
             script:
                 var startDate = new Date($temp.response.data.start_date);
                 var endDate = new Date($temp.response.data.end_date);
@@ -210,7 +233,7 @@ theme: /
                     endDate.getHours() + ":" + 
                     (endDate.getMinutes() < 10 ? "0" : "") + endDate.getMinutes();
                 $session.idEx =$temp.response.data.excursion_id
-            a: Мы подобрали для вас такую экскурсию:\n\n{{$temp.response.data.excursion_name}} – {{$temp.response.data.excursion_description}}\n\nЦена: {{$temp.response.data.price}}\nКоличество человек: {{$temp.response.data.max_participants}}\n\nДата: {{$temp.startDateFormatted}} – {{$temp.endDateFormatted}}\n\nЛокация: {{$temp.response.data.location}}\n\nЭкскурсовод: {{$temp.response.data.organizer_name}}
+            a: Мы подобрали для вас такую экскурсию:\n\n{{$temp.response.data.excursion_name}} – {{$temp.response.data.excursion_description}}\nКатегория: {{$temp.response.data.category_name}}\n\nЦена: {{$temp.response.data.price}}\nКоличество человек: {{$temp.response.data.max_participants}}\n\nДата: {{$temp.startDateFormatted}} – {{$temp.endDateFormatted}}\n\nЛокация: {{$temp.response.data.location}}\n\nЭкскурсовод: {{$temp.response.data.organizer_name}}
             
             buttons:
                 "Записаться на экскурсию" -> /newState/booking
@@ -249,33 +272,35 @@ theme: /
                     go!: ./newState2
                     
                     state: newState2
-                        a: {{$session.idEx}}
+                        # a: {{$session.idEx}}
                         script:
                             $temp.response = $http.post(
-                                "URL", 
+                                "http://217.114.7.99/booking/", 
                                 {
                                     body: {
-                                        "fio": $session.fio,
-                                        "phone": $session.phone,
-                                        "idEx": $session.idEx
+                                        "customer_name": $session.fio,
+                                        "customer_phone": $session.phone,
+                                        "excursion_id": $session.idEx
                                     },
                                     headers: {
                                         "Content-Type": "application/json"
                                     }
                                 }
                             );
+                        if: $temp.response.isOk
+                            a: Бронь экскурсии завершена!
                         
 
 
-    state: сatchAll
-        event!: noMatch
-        random:
-        a: Извините, я не понял.
-        a: Извините, я не понимаю, что мне с этим делать.
-        a: Не могли бы вы повторить?
-        a: Повторите, пожалуйста.
-        buttons:
-            "Вернуться в начало" -> /Greeting
+    # state: сatchAll
+    #     event!: noMatch
+    #     random:
+    #     a: Извините, я не понял.
+    #     a: Извините, я не понимаю, что мне с этим делать.
+    #     a: Не могли бы вы повторить?
+    #     a: Повторите, пожалуйста.
+    #     buttons:
+    #         "Вернуться в начало" -> /Greeting
 
 
 
